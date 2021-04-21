@@ -11,3 +11,30 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+for keymap in 'emacs' 'viins' 'vicmd'; do
+    # [Ctrl-RightArrow] - move forward one word
+    bindkey -M $keymap '^[[1;5C' forward-word
+    # [Ctrl-LeftArrow] - move backward one word
+    bindkey -M $keymap '^[[1;5D' backward-word
+    bindkey  "^[[1~"   beginning-of-line
+    bindkey  "^[[4~"   end-of-line
+done
+unset keymap
+bindkey  "^[[1~"   beginning-of-line
+bindkey  "^[[4~"   end-of-line
+
+export GOHOME=/home/kellerza/go
+alias clab='sudo containerlab'
+alias clab_destroy='/home/kellerza/containerlabs/clab_destroy.sh'
+alias clab_known_host='/home/kellerza/containerlabs/clab_known_hosts.sh'
+alias clab_='/home/kellerza/go/src/github.com/kellerza/containerlab/containerlab'
+autoload -Uz compinit && compinit
+
+export TEMPLATES1=/home/kellerza/containerlabs/templates
+export TEMPLATES0=/home/kellerza/go/src/github.com/kellerza/containerlab/templates/
+# append
+path+=('/usr/local/go/bin')
+# prepend
+path=('/home/kellerza/go/bin' $path)
+# export to sub-processes (make it inherited by child processes)
+export PATH
